@@ -3,3 +3,22 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+table {
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 0.25rem;
+  text-align: left;
+  border: 1px solid #ccc;
+  min-width: 100px;
+}
+
+tbody tr:nth-child(odd) {
+  background: #eee;
+}
+
+.main-table {
+  margin: 0 auto;
+}
