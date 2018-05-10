@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux'
+import { testAction } from '../actions'
 
-const AssetsTable = ({assets}) => (
+let AssetsTable = ({ dispatch }) => (
   <div>
     <table className="main-table">
       <thead>
@@ -12,21 +14,20 @@ const AssetsTable = ({assets}) => (
           <th>Last update</th>
           <th>Type</th>
         </tr>
-        {assets.map((asset) => {
-          return (
-            <tr key={asset.id}>
-              <td>{asset.id}</td>
-              <td>{asset.assetName}</td>
-              <td>{asset.price}</td>
-              <td>{asset.lastUpdate}</td>
-              <td>{asset.type}</td>
-            </tr>
-          );
-        })}
       </thead>
     </table>
+    <br/>
+    <button type="button" onClick={(e) => {
+      dispatch(testAction(Math.floor(Math.random() * 10)))
+    }}>
+      click
+    </button>
   </div>
 );
+
+const mapStateToProps = (state) => ({
+  testResult: state.test
+})
 
 AssetsTable.propTypes = {
   assets: PropTypes.arrayOf(
@@ -37,7 +38,10 @@ AssetsTable.propTypes = {
       lastUpdate: PropTypes.number.isRequired,
       type: PropTypes.string.isRequired,
     })
-  ).isRequired,
+  ),
+  test: PropTypes.number,
 };
+
+AssetsTable = connect(mapStateToProps)(AssetsTable)
 
 export default AssetsTable;
