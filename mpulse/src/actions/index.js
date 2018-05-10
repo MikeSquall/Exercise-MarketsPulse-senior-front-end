@@ -1,23 +1,12 @@
 export const CREATE_ASSET = 'CREATE_ASSET'
-export const UPDATE_ASSET = 'UPDATE_ASSET'
+export const LOAD_ASSETS = 'LOAD_ASSETS'
 
 
-export const createAsset = (id, assetName, price, lastUpdate, assetType) => ({
+export const createAsset = (asset) => ({
   type: CREATE_ASSET,
-  id,
-  assetName,
-  price,
-  lastUpdate,
-  assetType
+  payload: asset
 })
 
-export const updateAsset = (price, lastUpdate) => ({
-  type: UPDATE_ASSET,
-  price,
-  lastUpdate
-})
-
-export const testAction = (number) => ({
-  type: 'TEST',
-  number
+export const loadAssets = () => ({
+  type: LOAD_ASSETS,
 })

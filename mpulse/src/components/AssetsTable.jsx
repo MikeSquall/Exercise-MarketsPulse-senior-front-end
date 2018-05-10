@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { testAction } from '../actions'
+import { loadAssets } from '../actions'
 
 class AssetsTable extends React.Component {
   render() {
@@ -16,41 +16,49 @@ class AssetsTable extends React.Component {
               <th>Last update</th>
               <th>Type</th>
             </tr>
+            {Object.keys(this.props.assets).map(id => {
+              const {assetName, price, lastUpdate, assetType} = this.props.assets[id]
+              return (
+                <tr key={id}>
+                  <td>{id}</td>
+                  <td>{assetName}</td>
+                  <td>{price}</td>
+                  <td>{lastUpdate}</td>
+                  <td>{assetType}</td>
+                </tr>
+              )
+            })}
           </thead>
         </table>
         <br/>
         <button type="button" onClick={() => {
-          this.props.testDispatch(Math.floor(Math.random() * 10))
+          this.props.loadAssets()
         }}>
           click
         </button>
-        {this.props.testResult.map(i => {
-          return (<div key={i*Math.floor(Math.random() * 1000)}>{i}</div>)
-        })}
       </div>
     )
   }
 }
 
 const mapStateToProps = (state) => ({
-  testResult: state.test
+  assets: state.assets
 })
 
 const mapDispatchToProps = dispatch => ({
-  testDispatch: number => dispatch(testAction(number))
+  loadAssets: () => dispatch(loadAssets())
 })
 
 AssetsTable.propTypes = {
-  assets: PropTypes.arrayOf(
+  assets: PropTypes.objectOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       assetName: PropTypes.string.isRequired,
       price: PropTypes.number.isRequired,
       lastUpdate: PropTypes.number.isRequired,
-      type: PropTypes.string.isRequired,
+      assetType: PropTypes.string.isRequired,
     })
   ),
-  testResult: PropTypes.array,
 }
 
 AssetsTable = connect(mapStateToProps, mapDispatchToProps)(AssetsTable)
