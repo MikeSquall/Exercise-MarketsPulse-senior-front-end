@@ -18,6 +18,6 @@ export const updateAsset = (price, lastUpdate) => ({
 })
 
 export const testAction = (number) => ({
-  type: 'TEST_REDUCER',
+  type: 'TEST',
   number
 })

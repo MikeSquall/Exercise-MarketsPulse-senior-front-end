@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import AssetsTable from './components/AssetsTable';
-//import assets from './containers/Assets';
+import React, { Component } from 'react'
+import AssetsTable from './components/AssetsTable'
+//import assets from './containers/Assets'
 
 class App extends Component {
   render() {
@@ -8,8 +8,8 @@ class App extends Component {
       <div className="App">
         <AssetsTable />
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App

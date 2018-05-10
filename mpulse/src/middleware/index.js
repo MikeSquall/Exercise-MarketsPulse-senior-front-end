@@ -11,7 +11,6 @@ const newAsset = (assetId, assetType) => {
 }
 
 const assetsMiddleWare = store => next => action => {
-  console.log("Middleware triggered:", action);
   switch(action.type) {
     // case CREATE_ASSET:
     //   for (let i = 0; i < 10; i++) {
@@ -19,9 +18,12 @@ const assetsMiddleWare = store => next => action => {
     //     dispatch(createAsset(newAsset(i+10, 'Currency')))
     //   }
     case 'TEST':
-      store.dispatch('TEST_REDUCER')
+      console.log("Middleware triggered:", action)
+      store.dispatch({ type: 'TEST_REDUCER', payload: action.number})
+    default:
+      console.log('middleware default case')
   }
-  next(action);
+  return next(action)
 }
 
 export default assetsMiddleWare

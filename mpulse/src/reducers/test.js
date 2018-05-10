@@ -1,10 +1,10 @@
 const test = (state = [], action) => {
   switch (action.type) {
     case 'TEST_REDUCER':
-      console.log('reducer triggered ' + action.type)
+      console.log('reducer triggered ' + action)
       return [
         ...state,
-        state.push(action.number)
+        action.payload
       ]
     default:
       return state
