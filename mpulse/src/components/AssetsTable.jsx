@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { loadAssets } from '../actions'
+import Asset from '../containers/Asset'
 
 class AssetsTable extends React.Component {
   render() {
@@ -17,15 +18,8 @@ class AssetsTable extends React.Component {
               <th>Type</th>
             </tr>
             {Object.keys(this.props.assets).map(id => {
-              const {assetName, price, lastUpdate, assetType} = this.props.assets[id]
               return (
-                <tr key={id}>
-                  <td>{id}</td>
-                  <td>{assetName}</td>
-                  <td>{price}</td>
-                  <td>{lastUpdate}</td>
-                  <td>{assetType}</td>
-                </tr>
+                <Asset id={id} key={id}></Asset>
               )
             })}
           </thead>
