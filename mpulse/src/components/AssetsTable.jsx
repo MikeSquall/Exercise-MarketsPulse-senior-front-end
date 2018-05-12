@@ -5,12 +5,29 @@ import { loadAssets } from '../actions'
 import Asset from '../containers/Asset'
 
 class AssetsTable extends React.Component {
-  render() {
-    const assetsArr = []
-    for (let i = 0; i < this.props.assets; i++) {
-      assetsArr.push(i)
-    }
+  constructor(props) {
+    super(props)
+    this.state = { assets: null, assetsArr: [] }
+  }
 
+  componentDidMount() {
+    this.props.loadAssets()
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if(nextProps.assets !== prevState.assets) {
+      let assetsArr = []
+      for (let i = 0; i < nextProps.assets; i++) {
+        assetsArr.push(i)
+      }
+      return {
+        assets: assetsArr.length,
+        assetsArr: assetsArr
+      }
+    }
+  }
+
+  render() {
     return (
       <div>
         <table className="main-table">
@@ -22,19 +39,13 @@ class AssetsTable extends React.Component {
               <th>Last update</th>
               <th>Type</th>
             </tr>
-            {Object.keys(assetsArr).map(id => {
+            {Object.keys(this.state.assetsArr).map(id => {
               return (
                 <Asset id={id} key={id}></Asset>
               )
             })}
           </thead>
         </table>
-        <br/>
-        <button type="button" onClick={() => {
-          this.props.loadAssets()
-        }}>
-          click
-        </button>
       </div>
     )
   }
