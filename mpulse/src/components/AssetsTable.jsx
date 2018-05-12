@@ -6,6 +6,11 @@ import Asset from '../containers/Asset'
 
 class AssetsTable extends React.Component {
   render() {
+    const assetsArr = []
+    for (let i = 0; i < this.props.assets; i++) {
+      assetsArr.push(i)
+    }
+
     return (
       <div>
         <table className="main-table">
@@ -17,7 +22,7 @@ class AssetsTable extends React.Component {
               <th>Last update</th>
               <th>Type</th>
             </tr>
-            {Object.keys(this.props.assets).map(id => {
+            {Object.keys(assetsArr).map(id => {
               return (
                 <Asset id={id} key={id}></Asset>
               )
@@ -36,7 +41,7 @@ class AssetsTable extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  assets: state.assets
+  assets: state.assets.counter
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -44,15 +49,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 AssetsTable.propTypes = {
-  assets: PropTypes.objectOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      assetName: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-      lastUpdate: PropTypes.number.isRequired,
-      assetType: PropTypes.string.isRequired,
-    })
-  ),
+  assets: PropTypes.number,
 }
 
 AssetsTable = connect(mapStateToProps, mapDispatchToProps)(AssetsTable)
