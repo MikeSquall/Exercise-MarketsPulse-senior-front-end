@@ -1,5 +1,5 @@
 import {Observable} from 'rxjs/Observable'
-import 'rxjs/observable/interval'
+import { interval } from 'rxjs'
 import 'rxjs/observable/from'
 
 const createAsset = (assetId, assetType) => {
