@@ -6,7 +6,7 @@ const assetsMiddleWare = store => next => action => {
   switch(action.type) {
     case LOAD_ASSETS:
       mock
-        .filter(asset => asset.id < 3)
+        .filter(asset => asset.id < 400)
         .subscribe((asset) => {
           store.dispatch(createAsset(asset))
         })

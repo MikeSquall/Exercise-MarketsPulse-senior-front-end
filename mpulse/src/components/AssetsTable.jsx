@@ -5,26 +5,16 @@ import { loadAssets } from '../actions'
 import Asset from '../containers/Asset'
 
 class AssetsTable extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = { assets: null, assetsArr: [] }
-  }
 
   componentDidMount() {
     this.props.loadAssets()
   }
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if(nextProps.assets !== prevState.assets) {
-      let assetsArr = []
-      for (let i = 0; i < nextProps.assets; i++) {
-        assetsArr.push(i)
-      }
-      return {
-        assets: assetsArr.length,
-        assetsArr: assetsArr
-      }
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextProps.assetIds === this.props.assetIds){
+      return false
     }
+    return true
   }
 
   render() {
@@ -39,9 +29,12 @@ class AssetsTable extends React.Component {
               <th>Last update</th>
               <th>Type</th>
             </tr>
-            {Object.keys(this.state.assetsArr).map(id => {
+            {this.props.assetIds.map(id => {
               return (
-                <Asset id={id} key={id}></Asset>
+                <Asset
+                  id={id}
+                  key={id}>
+                </Asset>
               )
             })}
           </thead>
@@ -52,7 +45,7 @@ class AssetsTable extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  assets: state.assets.counter
+  assetIds: Object.keys(state.assets),
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -60,7 +53,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 AssetsTable.propTypes = {
-  assets: PropTypes.number,
+  assets: PropTypes.array,
 }
 
 AssetsTable = connect(mapStateToProps, mapDispatchToProps)(AssetsTable)

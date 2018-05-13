@@ -1,12 +1,11 @@
 import { CREATE_ASSET } from '../actions'
 
-const assets = (state = { counter: 0 }, action) => {
+const assets = (state = {}, action) => {
   switch (action.type) {
     case CREATE_ASSET:
       return {
         ...state,
-        counter: Object.keys(state).length - 1,
-        [action.payload.id]: action.payload
+        [action.payload.id]: { ...state[action.payload.id], ...action.payload }
       }
     default:
       return state
